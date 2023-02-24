@@ -1,0 +1,35 @@
+<div class="container text-center">
+  <h1>Name: <%= @restaurant.name %></h1>
+  <h2>Address: <%= @restaurant.address %></h2>
+
+  <br>
+
+  <h2>Reviews</h2>
+
+  <ul class="circle" >
+
+    <% @restaurant.reviews.each do |review| %>
+      <li>
+        <%= review.content %>
+        <%= review.rating %>
+        <%= link_to review_path(review), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+          <i class="fa-solid fa-trash red"></i>
+        <% end %>
+      </li>
+    <% end %>
+
+  </ul>
+
+  <br><br>
+
+  <h1>New review</h1>
+    <%= simple_form_for [@restaurant, @review] do |f| %>
+      <%= f.input :content %>
+      <%= f.input :rating %>
+      <%= f.submit "Submit review", class: "btn btn-primary" %>
+    <% end %>
+
+  <br><br>
+
+  <%= link_to "Back", restaurants_path %>
+</div>
